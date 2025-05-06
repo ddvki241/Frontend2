@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lab 4</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>Система управління контентом</h1>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#session">Сесія</a></li>
+    <li><a data-toggle="tab" href="#group">Група</a></li>
+    <li><a data-toggle="tab" href="#subject">Дисципліна</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="session" class="tab-pane fade in active">
+      <h3>Cесія</h3>
+      <table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Дисципліна</th>
+				<th>Група</th>
+				<th>ПІБ викладача</th>
+				<th>Дата</th>
+				<th>Вид контролю</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	  </table>
+    </div>
+    <div id="group" class="tab-pane fade">
+      <h3>Групи</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="subject" class="tab-pane fade">
+      <h3>Дисципліна</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for adding conference -->
+<div class="modal fade" id="subjectModal" tabindex="-1" role="dialog" aria-labelledby="subjectModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="subjectModalLongTitle">Додати/Редагувати Дисципліну</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="subjectForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="subjectNameInput" class="form-label">Назва</label>
+              <input type="text" class="form-control" id="subjectNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="subjectDepartmentInput" class="form-label">Кафедра</label>
+              <input type="text" class="form-control" id="subjectDepartmentInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="subjectTimeForSubjectInput" class="form-label">Обсяг годин</label>
+              <input type="text" class="form-control" id="subjectTimeForSubjectInput" required>
+            </div>
+            <input type="hidden" id="subjectIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeSubjectModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal for adding scientist -->
+<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="groupModalLongTitle">Додати/Редагувати групу</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="groupForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="groupGroupCodeInput" class="form-label">Код групи</label>
+              <input type="text" class="form-control" id="groupGroupCodeInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="groupFacultyInput" class="form-label">Факультет</label>
+              <input type="text" class="form-control" id="groupFacultyInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="groupCourseInput" class="form-label">Курс</label>
+              <input type="text" class="form-control" id="groupCourseInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="groupMembersCountInput" class="form-label">Кількість студентів</label>
+              <input type="text" class="form-control" id="groupMembersCountInput" required>
+            </div>
+            <input type="hidden" id="groupIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeGroupModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal for adding participation -->
+<div class="modal fade" id="sessionModal" tabindex="-1" role="dialog" aria-labelledby="sessionModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sessionModalLongTitle">Додати/Редагувати сесію</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="sessionForm">
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="sessionSubjectInput" class="form-label">Дисципліна</label>
+              <select id="sessionSubjectInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+              </select>  
+            </div>
+            <div class="mb-3">
+              <label for="sessionGroupInput" class="form-label">Група</label>
+              <select id="sessionGroupInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+              </select>  
+            </div>
+            <div class="mb-3">
+              <label for="sessionFullNameInput" class="form-label">ПІБ викладача</label>
+              <input type="text" class="form-control" id="sessionFullNameInput" required>
+            </div>
+            <div class="mb-3">
+              <label for="sessionTypeOfFinalsInput" class="form-label">Вид контролю</label>
+              <select id="sessionTypeOfFinalsInput" class="form-select form-control form-select-lg mb-3" aria-label=".form-select-lg" required>
+                <option value="Екзамен">Екзамен</option>
+                <option value="Залік">Залік</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="sessionDateOfSessionInput" class="form-label">Дата</label>
+              <input type="number" class="form-control" id="sessionDateOfSessionInput" required>
+            </div>
+            <input type="hidden" id="sessionIdInput" value=""/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeSessionModal" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="script1.js"></script>
+</body>
+</html>
